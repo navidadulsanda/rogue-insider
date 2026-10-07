@@ -17,5 +17,10 @@ RUN echo "ROGUE{s0_th4ts_h0w_h3_did_it}" > /root/vault_access.flag && \
 
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openssh-server sudo vim iputils-ping && \
+    mkdir -p /var/run/sshd && \
+    rm -rf /var/lib/apt/lists/*
+    
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
