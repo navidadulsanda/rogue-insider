@@ -1,15 +1,18 @@
 services:
   stage4_web:
     build: ../stages/stage4
-    container_name: stage4_web
+    ports:
+      - "5000:5000"         # or "5001:5000" if AirPlay still holds 5000
+    cap_drop: [ALL]
     networks: [ctf_internal]
-    ports: ["5000:5000"]     # reachable on the lab LAN only
+
   stage5_ssh:
     build: ../stages/stage5
-    container_name: stage5_ssh
+    ports:
+      - "2222:22"
     networks: [ctf_internal]
-    ports: ["2222:22"]       # SSH, mapped to host port 2222
 
 networks:
   ctf_internal:
     driver: bridge
+    internal: true 
